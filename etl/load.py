@@ -1,14 +1,16 @@
 import psycopg2
 from psycopg2.extras import execute_values
-from etl.config import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT , DB_USER
+from airflow.hooks.base import BaseHook
+#from etl.config import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT , DB_USER
 
 def get_connection():
+    conn = BaseHook.get_connection("weather_etl_db")
     return psycopg2.connect(
-        host=DB_HOST,
-        port=DB_PORT,
-        dbname=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD
+        host=conn.host,
+        port=conn.port,
+        dbname=conn.schema,
+        user=conn.login,
+        password=conn.password
     )
 
 def load_cities(cities_dict, conn):
