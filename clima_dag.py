@@ -5,9 +5,9 @@ import os
 
 sys.path.append((os.path.dirname(__file__)))
 
-from extract import extract_from_api
-from transform import transform_weather_data
-from load import get_connection, load_cities, get_city_ids, load_weather
+from etl.extract import extract_from_api
+from etl.transform import transform_weather_data
+from etl.load import get_connection, load_cities, get_city_ids, load_weather
 
 CITIES = {
     "Medellín": (6.24, -75.58),

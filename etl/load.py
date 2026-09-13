@@ -1,6 +1,6 @@
 import psycopg2
 from psycopg2.extras import execute_values
-from config import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT , DB_USER
+from etl.config import DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT , DB_USER
 
 def get_connection():
     return psycopg2.connect(
