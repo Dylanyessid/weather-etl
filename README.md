@@ -5,8 +5,7 @@ Este DAG de Airflow orquesta una ETL (Extract → Transform → Load) diaria par
 **Resumen**
 - **Nombre del DAG:** `clima_etl`
 - **Horario:** `@daily` (ejecuta diariamente)
-- **Inicio:** 2026-08-01
-- **Catchup:** `False` (no procesa ejecuciones históricas)
+
 
 **Flujo de trabajo**
 - **Carga de ciudades:** tarea `cargar_ciudades` — inserta las ciudades definidas en el diccionario `CITIES` en la base de datos.
@@ -32,4 +31,3 @@ Este DAG de Airflow orquesta una ETL (Extract → Transform → Load) diaria par
 - El diccionario `CITIES` (en [clima_dag.py](clima_dag.py)) contiene las ciudades y coordenadas que se procesan. Cambiarlo añade/quita ciudades del flujo.
 - Cada ejecución abre y cierra conexiones a la base de datos por tarea para evitar conexiones persistentes.
 
-Si quieres, puedo añadir ejemplos de variables de entorno esperadas, un `requirements.txt` mínimo, o una sección de troubleshooting.
