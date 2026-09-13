@@ -21,16 +21,16 @@ CITIES = {
     catchup=False,
     tags=["clima"]
 )
-def clima_etl():
+def weather_etl():
 
     @task
-    def cargar_ciudades():
+    def load_cities_task():
         conn = get_connection()
         load_cities(CITIES, conn)
         conn.close()
 
     @task
-    def procesar_ciudad(city_name: str, coords: tuple):
+    def proccess_city_task(city_name: str, coords: tuple):
         city_data = extract_from_api(coords[0], coords[1])
         weather_records = transform_weather_data(city_data)
         
@@ -40,10 +40,10 @@ def clima_etl():
         load_weather(weather_records, city_id, conn)
         conn.close()
 
-    ciudades_cargadas = cargar_ciudades()
+    loaded_cities = load_cities_task()
     
     for city_name, coords in CITIES.items():
-        tarea = procesar_ciudad(city_name, coords)
-        ciudades_cargadas >> tarea
+        process_city = proccess_city_task(city_name, coords)
+        loaded_cities >> process_city
 
-clima_etl()
+weather_etl()
